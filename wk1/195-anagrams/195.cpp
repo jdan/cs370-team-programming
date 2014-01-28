@@ -45,19 +45,26 @@ std::list<std::string> permutations(std::string s1) {
         result.push_back(first + item);
       }
     }
-
   }
+
   result.sort();
   result.unique();
+
   return result;
 }
 
 int main() {
+  int i, rounds;
+  std::string input;
   std::list<std::string> perms;
 
-  perms = permutations("fives");
+  std::cin >> rounds;
+  for (i = 0; i < rounds; i++) {
+    std::cin >> input;
 
-  for (std::string item : perms) {
-    std::cout << item << std::endl;
+    perms = permutations(input);
+    for (std::string item : perms) {
+      std::cout << item << std::endl;
+    }
   }
 }
