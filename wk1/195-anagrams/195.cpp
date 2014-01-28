@@ -1,5 +1,5 @@
 /*
-* Jack Farzan (and Jordan Scales obv)
+* Jack Farzan & Natalie Barillaro & Jordan Scales
 * problem 195 in cpp
 */
 
@@ -47,7 +47,8 @@ std::list<std::string> permutations(std::string s1) {
     }
 
   }
-
+  result.sort();
+  result.unique();
   return result;
 }
 
