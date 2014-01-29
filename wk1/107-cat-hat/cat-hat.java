@@ -15,6 +15,9 @@ class Main
 
         sc = new Scanner(System.in);
         while (sc.hasNext()){
+            if (initialHeight == 0 && workingCats == 0) {
+                break;
+            }
 
             if (initialHeight == 1 && workingCats == 1) {
                 System.out.println( 0 + " " + 1 );
