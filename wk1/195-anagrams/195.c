@@ -4,89 +4,94 @@
 */
 
 #include <stdio.h>
-#include <malloc.h>
 #include <string.h>
 #include <stdlib.h>
 
+#define WORD_SZ 10
+
 /**
- * Permutations of a given string
- *
- * Example permutations('abc') => ['abc', 'cba', ...];
- *
- * Methodology
- * Permutation consists of:
- *   Base case: ''
- *     Permutations: ['']
- *   Inductive step:
- *     each character
- *       appended to all of the permutations of the remaining characters
+ * The following two methods are based off of the code provided here:
+ * http://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/
  */
 
- int comp (const void * elem1, const void * elem2) 
-{
-    char f = *((char*)elem1);
-    char s = *((char*)elem2);
-    if (f > s) return  1;
-    if (f < s) return -1;
-    return 0;
+/* Function to swap values at two pointers */
+void swap (char *x, char *y) {
+    char temp;
+    temp = *x;
+    *x = *y;
+    *y = temp;
 }
 
-std::list<std::string> permutations(char* s1) 
-{
-  // Permutations
-  // Base case: s1 is the empty string
+/* Function to print permutations of string
+   This function takes five parameters:
+   1. String
+   2. Starting index of the string
+   3. Ending index of the string.
+   4. Pointer to array to populate with permutations
+   5. Pointer to index for permutations array */
+void permute(char *a, int i, int n, char **permutations, int *index) {
+    int j, k;
 
-  //std::list<std::string> result;
-  //std::list<std::string> rest;
-  char* first, new1, new2;
+    if (i == n) {
+        /* Check if it's unique */
+        for (k = 0; k < *index; k++) {
+            if (strcmp(a, permutations[k]) == 0) {
+                return;
+            }
+        }
 
-  int i, j;
-
-  if (sizeof(s1) == 0) 
-    result.push_back("");
-  else 
-  {
-    for (i = 0; i < sizeof(s1); i++) 
-    {
-      first = (char*)malloc(1);
-      strncpy(first, s1+i, 1);
-      first[1] = '\0';
-      new1 = (char*)malloc(i);
-      strncpy(new1, s1, i);
-      new1[i] = '\0';
-      new2 = (char*)malloc(sizeof(s1));
-      strncpy(new2, s1+i+1, s1);
-      rest = permutations(new1 + new2);
-
-      for (std::string item : rest) 
-        result.push_back(first + item);
+        permutations[*index] = strdup(a);
+        *index += 1;
+    } else {
+        for (j = i; j <= n; j++) {
+            swap((a+i), (a+j));
+            permute(a, i+1, n, permutations, index);
+            swap((a+i), (a+j)); /** backtrack */
+        }
     }
-  }
-  qsort(result, sizeof(result), sizeof(*result), comp);
-  result.unique();
-  return result;
 }
 
-int main() 
-{
-  std::list<std::string> perms;
+/**
+ * Computes the factorial of a given n
+ */
+int factorial(int n) {
+    int i, result = 1;
 
-  perms = permutations("fives");
-
-  for (std::string item : perms) 
-    std::cout << item << std::endl;
-  
-  /*  while (scanf("%d %s", &n) > 2)
-    {
-
-    for(i=m+1;i<=n;i++) 
-    {
-        temp = cycle(i);
-        if (temp > max)
-      max = temp;
+    for (i = 2; i <= n; i++) {
+        result *= i;
     }
-    printf("%d %d %d\n",);
+
+    return result;
+}
+
+int compfunc(const void *a, const void *b) {
+    return strcmp (*(const char **) a, *(const char **)b);
+}
+
+int main(int argc, char **argv) {
+    char *word;
+    char **permutations;
+    int n, i, j, index;
+
+    word = (char*)malloc(WORD_SZ * sizeof(char));
+
+    /* Read first number */
+    scanf("%d\n", &n);
+
+    for (i = 0; i < n; i++) {
+        scanf("%s\n", word);
+
+        permutations = (char**)malloc(factorial(strlen(word)) * sizeof(char*));
+        index = 0;
+
+        permute(word, 0, strlen(word) - 1, permutations, &index);
+
+        /* sort and unique */
+        qsort(permutations, index, sizeof(char*), compfunc);
+
+        for (j = 0; j < index; j++) {
+            printf("%s\n", permutations[j]);
+        }
     }
-    return(0);*/
 }
 

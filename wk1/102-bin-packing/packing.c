@@ -59,13 +59,13 @@ int transferBottles(int **bins, int a, int b, int c) {
     int movements = 0;
     int i, j;
 
-    // Transfer bottles into the first bin
+    /* Transfer bottles into the first bin */
     movements += bins[1][a] + bins[2][a];
 
-    // Transfer bottles into the second bin
+    /* Transfer bottles into the second bin */
     movements += bins[0][b] + bins[2][b];
 
-    // Transfer bottles into the third bin
+    /* Transfer bottles into the third bin */
     movements += bins[0][c] + bins[1][c];
 
     return movements;
