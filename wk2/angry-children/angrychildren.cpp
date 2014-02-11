@@ -9,7 +9,7 @@ using namespace std;
 
 int main() {
 
-long long min, temp, j, curr, n, k, i, t;
+long long min, temp, j, curr, n, k, i, t, r;
 vector<long long> candies;
 cin >> n;
 cin >> k;
@@ -51,14 +51,17 @@ for (i = k, j=0; i < n-1; i++, j++) {
        }
 } */
 min = LLONG_MAX;
+
 for (i = n-1; i > k-2 ; i--) {
 	curr = 0;
-	
-	for (j = i, t = k-1; j > i-k; j--)  {
+	for (j = i, t = k-1, r = i-k + 1; j >= r; j--, r++)  {
 		curr += t * (candies[j]);
-		t -= 2;
 
+		curr -= t * (candies[r]);
+
+		t -= 2;
 	}
+
 	if (curr < min) {
 		min = curr;
 
