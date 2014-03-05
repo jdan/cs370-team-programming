@@ -28,7 +28,11 @@ int main() {
 	}
 
   /* Loop to read individual lines */
-	while (!cin.eof()) {
+	while (cin >> x) {
+
+    /* Determine if we read an EOF, otherwise set the first position */
+    if (cin.eof()) break;
+    submission[x] = order[1];
 
     /**
      * Loop i from 1 to n (including)
@@ -36,7 +40,7 @@ int main() {
      * The `x` slot of `submission` corresponds to the value in the `i` slot
      *   of our original `order` array
      */
-		for(i = 1; i < n+1; i++) {
+		for(i = 2; i < n+1; i++) {
       cin >> x;
       submission[x] = order[i];
 		}
