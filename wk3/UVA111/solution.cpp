@@ -13,22 +13,22 @@ int longestIncreasingSubsequence(int*, int);
 
 int main() {
   int n, i, x;
-	int *order, *submission;
+  int *order, *submission;
 
   /* Read n first! */
-	cin >> n;
+  cin >> n;
 
-	order = new int[n+1];
-	submission = new int[n+1];
+  order = new int[n+1];
+  submission = new int[n+1];
 
-	/* Establish an "order" array */
+  /* Establish an "order" array */
   for (i = 1; i < n+1; i++) {
-		cin >> x;
-		order[i] = x;
-	}
+    cin >> x;
+    order[i] = x;
+  }
 
   /* Loop to read individual lines */
-	while (cin >> x) {
+  while (cin >> x) {
 
     /* Determine if we read an EOF, otherwise set the first position */
     if (cin.eof()) break;
@@ -40,10 +40,10 @@ int main() {
      * The `x` slot of `submission` corresponds to the value in the `i` slot
      *   of our original `order` array
      */
-		for(i = 2; i < n+1; i++) {
+    for(i = 2; i < n+1; i++) {
       cin >> x;
       submission[x] = order[i];
-		}
+    }
 
     /* Compute the LIS and print */
     cout << longestIncreasingSubsequence(submission+1, n) << endl;
