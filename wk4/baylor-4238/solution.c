@@ -89,10 +89,9 @@ int main(int argc, char **argv) {
          * Also make sure we haven't set badBlockIndex yet
          */
         if (area == 6 && badBlockIndex == 0) {
-          badBlockIndex = j;
+          badBlockIndex = j + 1;
         }
 
-        //printf("%d\n", area);
         totalArea += area;
       }
 
